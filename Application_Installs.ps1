@@ -1,6 +1,6 @@
 # Global Variables
-$ScriptName = "NHCCC_Deployment_ADMIN.ps1"
-$ScriptDir = "NHCCC Deployment\"
+$ScriptName = "Application_Installs.ps1"
+$ScriptDir = "App_Installs\"
 
 # Set Execution Policy
 Set-ExecutionPolicy -ExecutionPolicy Bypass
