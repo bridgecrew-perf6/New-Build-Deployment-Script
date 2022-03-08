@@ -34,7 +34,7 @@ function Map-Drives {
     
     Write-Host "Mapping K: drive..."
     if (Get-PSDrive $DriveLetter -ErrorAction SilentlyContinue) { 
-        Write-Host "The Valic K: drive is already in use." -ForegroundColor Red 
+        Write-Host "The K: drive is already in use." -ForegroundColor Red 
     }
     else { 
         New-PSDrive -Name $DriveLetter -PSProvider "FileSystem" -Root $DrivePath -Persist 
