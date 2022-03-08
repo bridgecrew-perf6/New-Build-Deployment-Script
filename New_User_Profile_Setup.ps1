@@ -1,4 +1,4 @@
-﻿# Update Group Policy
+# Update Group Policy
 function Update-GroupPolicy { 
    
    $gpupdate = "C:\Windows\System32\gpupdate.exe"
@@ -14,10 +14,10 @@ function Map-Printers {
 
     $printers = @( 
     
-    "\\pwgsasmpsjm08\FTWSecure08PCL6.4" 
-    "\\pwgsasmpsjm13\TXAM1FL03MM62PS" 
-    "\\pwgsasmpsjm13\TXAM2FL01SM07" 
-    "\\pwgsasmpsjm13\TXAM2FL01SM08" 
+    "\\path\to\network\printer-1" 
+    "\\path\to\network\printer-2" 
+    "\\path\to\network\printer-3" 
+    "\\path\to\network\printer-4" 
     
     )
 
@@ -30,7 +30,7 @@ function Map-Printers {
 function Map-Drives {
 
     $DriveLetter = "K"
-    $DrivePath = "\\pwsafshounas13\vdata4\sd1valic"
+    $DrivePath = "\\path\to\shared\drive"
     
     Write-Host "Mapping Valic K: drive..."
     if (Get-PSDrive $DriveLetter -ErrorAction SilentlyContinue) { 
@@ -38,7 +38,7 @@ function Map-Drives {
     }
     else { 
         New-PSDrive -Name $DriveLetter -PSProvider "FileSystem" -Root $DrivePath -Persist 
-        Write-Host "The Valic K: drive mapped successfully!" -ForegroundColor Green
+        Write-Host "The K: drive mapped successfully!" -ForegroundColor Green
     }
     
 }
