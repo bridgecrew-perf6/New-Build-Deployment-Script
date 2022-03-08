@@ -32,7 +32,7 @@ function Map-Drives {
     $DriveLetter = "K"
     $DrivePath = "\\path\to\shared\drive"
     
-    Write-Host "Mapping Valic K: drive..."
+    Write-Host "Mapping K: drive..."
     if (Get-PSDrive $DriveLetter -ErrorAction SilentlyContinue) { 
         Write-Host "The Valic K: drive is already in use." -ForegroundColor Red 
     }
