@@ -5,5 +5,7 @@ One script handles the installation of the standard packages required by the dep
 
 Before writing this script, performing the manual steps for these processes would have taken over an hour. Now all tasks can be done in under 5 minutes :)
 
-Some contents of the file were edited to protect proprietary information
+Some contents of the file were edited to protect proprietary information.
+
+Linted with PS Script Analyzer 
 
