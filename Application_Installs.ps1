@@ -195,7 +195,7 @@ function Install-Oracle {
 
     $TNSPath = "HKLM:\SOFTWARE\Wow6432Node\ORACLE\KEY_OraClient11g_home1"
     $TNSKey = "TNS_ADMIN"
-    $TNSValue = "\\pnsafsda05\tnsnames"
+    $TNSValue = "\\path\to\tns\directory"
 
 
     try {
