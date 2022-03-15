@@ -383,20 +383,38 @@ function Install-VCAT {
 
 }
 
-Install-Attachmate
-Install-AvayaOneXAgent
-Install-Xorceview
-Install-VCAT_TLS_Update
-Install-GlobalProtect
-Install-Oracle
-Install-Rightfax
-Install-NICE
-Install-IBM_Notes
-Install-SAP
-Install-VCAT
+# Add "Authenticated Users" group to VCAT registry key with "Full Control" permissions
+function Add-AuthenticatedUsersGroup { 
 
-Exit
+    $RegKey = "HKLM:\SOFTWARE\WOW6432Node\VCAT"
+    $acl = Get-Acl -Path $RegKey
+    $idName = "NT AUTHORITY\Authenticated Users"
+    $idRef = [System.Security.Principal.NTAccount]($idName)
+    $regRights = [System.Security.AccessControl.RegistryRights]::FullControl
+    $inhFlags = [System.Security.AccessControl.InheritanceFlags]::None
+    $propFlags = [System.Security.AccessControl.PropagationFlags]::None
+    $acType = [System.Security.AccessControl.AccessControlType]::Allow
+    $typeName = "System.Security.AccessControl.RegistryAccessRule"
+    $argsList = @($idRef, $regRights, $inhFlags, $propFlags, $acType)
+    $RegAccessRule = New-Object -TypeName $typeName -ArgumentList $argsList
+    
+    # Add the new registry access rule if not already present
+    
+    $CheckRegAccessRule = $acl.Access.Where({$_.IdentityReference -eq $idName})
+    if(-Not($CheckRegAccessRule)) {
+    
+        Write-Host "Adding Authenticated Users group..."
+        # Create a backup of the registry key
+        Invoke-Command -ScriptBlock {reg export HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\VCAT VCATRegKeyBackup.reg /y}
+        $acl.AddAccessRule($RegAccessRule)
+        Set-Acl -Path $RegKey -AclObject $acl
+        $acl.Access
+        Write-Host "Authenticated Users group added successfully!" -ForegroundColor Green
+    }
+    
+    else {Write-Host "The Authenticated Users group is already present!" -ForegroundColor Yellow}
 
+}
 
 
 
