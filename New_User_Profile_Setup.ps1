@@ -29,18 +29,12 @@ function Map-Printers {
 # Map K drive
 function Map-Drives {
 
-    $DriveLetter = "K"
-    $DrivePath = "\\path\to\shared\drive"
-    
-    Write-Host "Mapping K: drive..."
-    if (Get-PSDrive $DriveLetter -ErrorAction SilentlyContinue) { 
-        Write-Host "The K: drive is already in use." -ForegroundColor Red 
-    }
-    else { 
-        New-PSDrive -Name $DriveLetter -PSProvider "FileSystem" -Root $DrivePath -Persist 
-        Write-Host "The K: drive mapped successfully!" -ForegroundColor Green
-    }
-    
+    $Command = {net use K: \\path\to\k\drive /persistent:yes}
+    $DriveIsMapped = Get-PSDrive -Name "K" 
+
+    Write-Host "Mapping Valic K: drive..."
+    if($DriveIsMapped) {Write-Host "Valic K drive is already mapped" -ForegroundColor Red}
+    else {Invoke-Command -ScriptBlock $Command; Get-PSDrive -Name "K"; Write-Host "Valic K: drive mapped successfully!" -ForegroundColor Green}
 }
 
 # Create desktop shortcuts
@@ -53,10 +47,4 @@ function Copy-Shortcuts {
     Write-Host "Shortcuts successfully copied!" -ForegroundColor Green
     
 }
-
-Update-GroupPolicy
-Map-Printers
-Map-Drives
-Copy-Shortcuts
-
 
