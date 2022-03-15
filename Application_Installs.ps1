@@ -399,10 +399,9 @@ function Add-AuthenticatedUsersGroup {
     $RegAccessRule = New-Object -TypeName $typeName -ArgumentList $argsList
     
 # Create a backup of the registry key, then add the new registry access rule if not already present
-
     $CheckRegAccessRule = $acl.Access.Where({$_.IdentityReference -eq $idName})
-    if(-Not($CheckRegAccessRule)) {
     
+    if(-Not($CheckRegAccessRule)) {
         Write-Host "Adding Authenticated Users group..."
         Invoke-Command -ScriptBlock {reg export HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\VCAT VCATRegKeyBackup.reg /y}
         $acl.AddAccessRule($RegAccessRule)
