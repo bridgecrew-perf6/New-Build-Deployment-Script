@@ -391,7 +391,7 @@ function Add-AuthenticatedUsersGroup {
     $idName = "NT AUTHORITY\Authenticated Users"
     $idRef = [System.Security.Principal.NTAccount]($idName)
     $regRights = [System.Security.AccessControl.RegistryRights]::FullControl
-    $inhFlags = [System.Security.AccessControl.InheritanceFlags]::None
+    $inhFlags = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit
     $propFlags = [System.Security.AccessControl.PropagationFlags]::None
     $acType = [System.Security.AccessControl.AccessControlType]::Allow
     $typeName = "System.Security.AccessControl.RegistryAccessRule"
